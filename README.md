@@ -12,6 +12,7 @@ A sophisticated Retrieval-Augmented Generation (RAG) chatbot built with Snowflak
 - **Follow-up Questions**: AI-generated suggested questions
 - **Health Monitoring**: System status and component health checks
 - **Document Analytics**: Statistics and insights about your knowledge base
+- **🆕 MCP Server**: Model Context Protocol server for AI system integration
 
 ## 🏗️ Architecture
 
@@ -103,6 +104,22 @@ streamlit run app.py
 
 The application will be available at `http://localhost:8501`
 
+### Running the MCP Server
+
+To start the Model Context Protocol server for AI system integration:
+
+```bash
+# Using the startup script (recommended)
+./start_mcp_server.sh
+
+# Or run directly
+python mcp_server.py
+```
+
+The MCP server will be available at `http://localhost:8000`
+
+For detailed MCP server documentation, see [MCP_SERVER_GUIDE.md](MCP_SERVER_GUIDE.md)
+
 ### Using the Chatbot
 
 1. **Upload Documents**: Use the sidebar to upload PDF, TXT, or Markdown files
@@ -132,8 +149,12 @@ ragchatbot/
 ├── config/
 │   └── snowflake_setup.sql    # Database initialization script
 ├── app.py                     # Streamlit application
+├── mcp_server.py              # Model Context Protocol server
+├── mcp_client_example.py      # MCP client example and demo
+├── start_mcp_server.sh        # MCP server startup script
 ├── requirements.txt           # Python dependencies
-└── README.md                  # This file
+├── README.md                  # This file
+└── MCP_SERVER_GUIDE.md        # MCP server documentation
 ```
 
 ## ⚙️ Configuration Options
@@ -232,9 +253,11 @@ For questions and support:
 - [ ] Advanced analytics dashboard
 - [ ] User authentication and sessions
 - [ ] Document versioning
-- [ ] API endpoints for integration
+- [ ] ✅ ~~API endpoints for integration~~ (MCP Server implemented)
 - [ ] Batch document processing
 - [ ] Custom embedding models
+- [ ] MCP server authentication and authorization
+- [ ] Enhanced MCP tools and capabilities
 
 ---
 

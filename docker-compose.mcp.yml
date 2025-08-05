@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  mcp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.mcp
+    container_name: rag-chatbot-mcp-server
+    ports:
+      - "8000:8000"
+    environment:
+      # Application Configuration
+      - APP_TITLE=RAG Chatbot MCP Server
+      - CHUNK_SIZE=1000
+      - CHUNK_OVERLAP=200
+      - MAX_RETRIEVED_DOCS=5
+      
+      # Optional: Snowflake Configuration (set these if you have Snowflake)
+      # - SNOWFLAKE_ACCOUNT=${SNOWFLAKE_ACCOUNT}
+      # - SNOWFLAKE_USER=${SNOWFLAKE_USER}
+      # - SNOWFLAKE_PASSWORD=${SNOWFLAKE_PASSWORD}
+      # - SNOWFLAKE_WAREHOUSE=${SNOWFLAKE_WAREHOUSE}
+      # - SNOWFLAKE_DATABASE=${SNOWFLAKE_DATABASE}
+      # - SNOWFLAKE_SCHEMA=${SNOWFLAKE_SCHEMA}
+      
+      # Optional: Mistral API Configuration
+      # - MISTRAL_API_KEY=${MISTRAL_API_KEY}
+    
+    volumes:
+      # Mount logs directory for persistence
+      - ./logs:/app/logs
+      # Mount uploads directory for document processing
+      - ./uploads:/app/uploads
+      # Optional: Mount .env file if you have one
+      # - ./.env:/app/.env:ro
+    
+    restart: unless-stopped
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    networks:
+      - mcp-network
+
+  # Optional: Add a simple web UI for testing MCP endpoints
+  mcp-client-demo:
+    build:
+      context: .
+      dockerfile: Dockerfile.mcp
+    container_name: rag-chatbot-mcp-client-demo
+    command: ["python", "mcp_client_example.py", "--server", "http://mcp-server:8000"]
+    depends_on:
+      mcp-server:
+        condition: service_healthy
+    environment:
+      - MCP_SERVER_URL=http://mcp-server:8000
+    networks:
+      - mcp-network
+    profiles:
+      - demo  # Only start with --profile demo
+
+networks:
+  mcp-network:
+    driver: bridge
+
+volumes:
+  mcp-logs:
+  mcp-uploads:
