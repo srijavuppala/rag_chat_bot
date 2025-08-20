@@ -1,241 +1,161 @@
-# RAG Chatbot Application
+# 🎓 University Course RAG Chatbot
 
-A sophisticated Retrieval-Augmented Generation (RAG) chatbot built with Snowflake Cortex Search and Mistral LLM for intelligent document processing and Q&A.
+A sophisticated **Retrieval-Augmented Generation (RAG)** chatbot that helps students discover and learn about university courses through natural language queries. Built with modern AI technologies including semantic search and large language models.
 
+## ✨ Features
 
-## 🚀 Features
+### 🔍 **Intelligent Course Discovery**
+- **Semantic Search**: Uses sentence transformers (all-MiniLM-L6-v2) for meaning-based course matching
+- **Natural Language Queries**: Ask questions like "What programming courses should I take first?"
+- **Contextual Understanding**: Goes beyond keyword matching to understand intent
 
-- **Document Processing**: Upload and process PDF, TXT, and Markdown files
-- **Intelligent Retrieval**: Snowflake Cortex Search for semantic document search
-- **Advanced Generation**: Mistral LLM for contextual response generation
-- **Interactive UI**: Modern Streamlit interface with chat history
-- **Follow-up Questions**: AI-generated suggested questions
-- **Health Monitoring**: System status and component health checks
-- **Document Analytics**: Statistics and insights about your knowledge base
+### 🤖 **AI-Powered Responses**
+- **LLM Integration**: Powered by Mistral for natural, helpful responses
+- **Personalized Recommendations**: Tailored course suggestions based on interests and prerequisites
+- **Academic Pathway Guidance**: Understand course sequences and dependencies
 
-## 🏗️ Architecture
+### 💾 **Robust Data Management**
+- **PostgreSQL Backend**: Scalable database for course information
+- **Comprehensive Course Data**: Detailed information including prerequisites, credits, descriptions
+- **Optimized Queries**: Indexed database for fast retrieval
 
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Streamlit UI  │    │  RAG Pipeline   │    │   Snowflake     │
-│                 │◄──►│                 │◄──►│  Cortex Search  │
-│   Chat Interface│    │  Orchestration  │    │   Data Storage  │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-                              │
-                              ▼
-                       ┌─────────────────┐
-                       │   Mistral LLM   │
-                       │   Generation    │
-                       └─────────────────┘
-```
+### 🌐 **Modern Web Interface**
+- **Streamlit UI**: Clean, interactive web application
+- **Real-time Chat**: Instant responses with course details
+- **Responsive Design**: Works on desktop and mobile devices
+- **Visual Course Cards**: Rich display of course information with similarity scores
 
-## 📋 Prerequisites
+## 🚀 Quick Start
 
-- Python 3.8+
-- Snowflake account with Cortex Search enabled
-- Mistral API key
-- Virtual environment (recommended)
-
-## 🛠️ Installation
-
-### 1. Clone the Repository
-
+### Option 1: Simple Demo (No Setup Required)
 ```bash
-git clone <repository-url>
-cd ragchatbot
+python3 simple_test.py
 ```
 
-### 2. Create Virtual Environment
-
+### Option 2: Interactive Demo Runner
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+python3 run_demo.py
 ```
 
-### 3. Install Dependencies
-
+### Option 3: Full Web Application
 ```bash
+# With Docker (Recommended)
+docker-compose up
+
+# Or manually
 pip install -r requirements.txt
-```
-
-### 4. Set Up Snowflake Database
-
-1. Connect to your Snowflake account
-2. Run the SQL script to create the database structure:
-
-```bash
-# Execute the SQL commands in config/snowflake_setup.sql
-```
-
-**Important**: Update the `YOUR_WAREHOUSE` placeholder in the SQL script with your actual warehouse name.
-
-### 5. Configure Environment Variables
-
-Create a `.env` file in the root directory:
-
-```bash
-# Snowflake Configuration
-SNOWFLAKE_ACCOUNT=your_account_name
-SNOWFLAKE_USER=your_username
-SNOWFLAKE_PASSWORD=your_password
-SNOWFLAKE_WAREHOUSE=your_warehouse
-SNOWFLAKE_DATABASE=RAG_CHATBOT_DB
-SNOWFLAKE_SCHEMA=PUBLIC
-
-# Mistral API Configuration
-MISTRAL_API_KEY=your_mistral_api_key
-
-# Application Configuration (Optional)
-APP_TITLE=RAG Chatbot
-APP_DESCRIPTION=AI-powered document Q&A system using Snowflake Cortex Search and Mistral LLM
-CHUNK_SIZE=1000
-CHUNK_OVERLAP=200
-MAX_RETRIEVED_DOCS=5
-```
-
-## 🚀 Usage
-
-### Running the Application
-
-```bash
 streamlit run app.py
 ```
-
-The application will be available at `http://localhost:8501`
-
-### Using the Chatbot
-
-1. **Upload Documents**: Use the sidebar to upload PDF, TXT, or Markdown files
-2. **Ask Questions**: Type questions about your uploaded documents
-3. **View Sources**: Check which documents were used to answer your questions
-4. **Follow-up**: Click on suggested follow-up questions for deeper exploration
-5. **Monitor Health**: Use the health check to ensure all components are working
-
-### Example Workflow
-
-1. Upload a document (e.g., company policy manual)
-2. Ask: "What is the vacation policy?"
-3. Review the response and source documents
-4. Click on follow-up questions like "How many vacation days do employees get?"
 
 ## 📁 Project Structure
 
 ```
-ragchatbot/
-├── src/
-│   ├── __init__.py
-│   ├── config.py              # Configuration management
-│   ├── snowflake_client.py    # Snowflake database operations
-│   ├── mistral_client.py      # Mistral LLM integration
-│   ├── document_processor.py  # Document ingestion and chunking
-│   └── rag_pipeline.py        # Main RAG orchestration
-├── config/
-│   └── snowflake_setup.sql    # Database initialization script
-├── app.py                     # Streamlit application
-├── requirements.txt           # Python dependencies
-└── README.md                  # This file
+rag-chatbot/
+├── 🌐 app.py                 # Main Streamlit web application
+├── 🧠 rag_system.py         # Core RAG implementation
+├── ⚙️  config.py             # Configuration management
+├── 🎮 demo_offline.py       # Offline demo (no database)
+├── 🧪 simple_test.py        # Basic functionality test
+├── 🎯 run_demo.py           # Interactive demo launcher
+├── 📊 database_setup.sql    # Database schema & sample data
+├── 📋 requirements.txt      # Python dependencies
+├── 🔧 .env.example         # Environment template
+├── 🐳 Dockerfile           # Container configuration
+├── 🐙 docker-compose.yml   # Multi-service setup
+├── 📦 setup.py            # Package configuration
+├── 📖 SETUP_GUIDE.md      # Detailed setup instructions
+├── ✉️  PROFESSIONAL_EMAIL.md # Email template for professors
+└── 📚 README.md           # This file
 ```
 
-## ⚙️ Configuration Options
+## 🛠️ Technology Stack
 
-### Environment Variables
+### **Backend & AI**
+- **Python 3.8+** - Core language
+- **Sentence Transformers** - Semantic embeddings
+- **Transformers/Mistral** - Large language model
+- **PyTorch** - ML framework
+- **SQLAlchemy** - Database ORM
+- **PostgreSQL** - Database
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `CHUNK_SIZE` | Text chunk size for processing | 1000 |
-| `CHUNK_OVERLAP` | Overlap between chunks | 200 |
-| `MAX_RETRIEVED_DOCS` | Max documents to retrieve | 5 |
+### **Frontend & UI**
+- **Streamlit** - Web framework
+- **HTML/CSS** - Custom styling
+- **Pandas** - Data manipulation
 
-### Snowflake Configuration
+### **DevOps & Deployment**
+- **Docker** - Containerization
+- **Docker Compose** - Multi-service orchestration
+- **Environment Management** - Configuration handling
 
-- Ensure your Snowflake account has Cortex Search enabled
-- The warehouse should have appropriate compute resources
-- Grant necessary permissions for the user account
+## 💡 Sample Queries
 
-### Mistral Configuration
+Try asking these questions:
+- "What programming courses are available?"
+- "I want to learn machine learning - what should I take?"
+- "What are the prerequisites for advanced AI courses?"
+- "Show me data science courses for beginners"
+- "What courses require CS101 as a prerequisite?"
+- "Tell me about cybersecurity courses"
 
-- Sign up for Mistral API access
-- Use the `mistral-large-latest` model for best results
-- Monitor API usage and rate limits
+## 🎯 Use Cases
 
-## 🔧 Troubleshooting
+### **For Students**
+- **Course Discovery**: Find relevant courses based on interests
+- **Academic Planning**: Understand course sequences and prerequisites
+- **24/7 Availability**: Get course information anytime
 
-### Common Issues
+### **For Advisors**
+- **Reduced Workload**: Handle routine course inquiries automatically
+- **Consistent Information**: Provide standardized course details
+- **Analytics**: Track common student questions and interests
 
-1. **Snowflake Connection Failed**
-   - Verify account, username, and password
-   - Check warehouse name and permissions
-   - Ensure Cortex Search is enabled
+### **For Institutions**
+- **Improved Accessibility**: Make course information more discoverable
+- **Enhanced User Experience**: Modern, intuitive interface
+- **Scalability**: Handle large course catalogs efficiently
 
-2. **Mistral API Errors**
-   - Verify API key is correct
-   - Check API quota and rate limits
-   - Ensure internet connectivity
+## 📈 Technical Highlights
 
-3. **Document Upload Issues**
-   - Check file format (PDF, TXT, MD only)
-   - Verify file is not corrupted
-   - Ensure sufficient disk space
+- **RAG Architecture**: Combines retrieval and generation for accurate responses
+- **Vector Similarity**: Uses cosine similarity for semantic matching
+- **Caching**: Optimized performance with embedding caching
+- **Error Handling**: Robust error management and fallback mechanisms
+- **Modular Design**: Clean separation of concerns for maintainability
+- **Docker Support**: Easy deployment and scaling
 
-4. **No Search Results**
-   - Upload more relevant documents
-   - Try different question phrasings
-   - Check if Cortex Search service is running
+## 🔧 Configuration
 
-### Debug Mode
-
-Enable debug logging by setting:
-
-```python
-import logging
-logging.basicConfig(level=logging.DEBUG)
-```
-
-## 🔒 Security Considerations
-
-- Store sensitive credentials in environment variables
-- Use Snowflake role-based access control
-- Monitor API key usage
-- Implement proper error handling for production use
-
-## 📊 Performance Tips
-
-- **Document Size**: Keep documents under 10MB for better processing
-- **Chunk Size**: Adjust based on document type (technical docs: 500-800, general: 1000-1500)
-- **Warehouse Size**: Use appropriate Snowflake warehouse size for your workload
-- **Caching**: Streamlit caches the RAG pipeline for better performance
+See `SETUP_GUIDE.md` for detailed setup instructions, including:
+- Environment setup
+- Database configuration
+- Docker deployment
+- Troubleshooting guide
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+We welcome contributions! Please see our contributing guidelines and feel free to:
+- Report bugs
+- Suggest features
+- Submit pull requests
+- Improve documentation
 
 ## 📄 License
 
-This project is licensed under the MIT License.
+This project is open source under the MIT License. See LICENSE file for details.
 
-## 🙋‍♂️ Support
+## 🎓 Academic Use
 
-For questions and support:
-- Check the troubleshooting section
-- Review Snowflake Cortex Search documentation
-- Consult Mistral API documentation
-- Create an issue in the repository
+This project is designed to be educational and can serve as:
+- **Learning Resource**: Understand RAG systems and modern AI
+- **Research Foundation**: Basis for academic research projects
+- **Portfolio Piece**: Demonstrate technical skills to professors/employers
+- **Teaching Tool**: Use in AI/ML courses and workshops
 
-## 🚀 Future Enhancements
-
-- [ ] Support for more document formats (DOCX, PPT)
-- [ ] Multi-language support
-- [ ] Advanced analytics dashboard
-- [ ] User authentication and sessions
-- [ ] Document versioning
-- [ ] API endpoints for integration
-- [ ] Batch document processing
-- [ ] Custom embedding models
+For academic presentations, see `PROFESSIONAL_EMAIL.md` for a template email to professors.
 
 ---
 
-**Built with ❤️ using Snowflake Cortex Search, Mistral LLM, and Streamlit** 
+**Built with ❤️ for the AI and Education communities**
+
+*This project demonstrates the practical application of RAG systems in educational technology, combining semantic search, large language models, and modern web development to create an intelligent course discovery system.*
